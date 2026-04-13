@@ -1,24 +1,22 @@
-# telegram-orders-dashboard
-Dashboard task
 # Telegram Orders Dashboard
 
-## Description
-This is a Node.js project that retrieves the latest orders from Supabase and sends them to Telegram as a formatted notification.
+## Описание
+Это простой Node.js проект, который получает последние заказы из Supabase и отправляет их в Telegram в виде сообщения.
 
-The script connects to the `orders` table, gets the latest 5 records, formats them into a readable message, and sends the result to a Telegram chat using Telegram Bot API.
+Скрипт подключается к таблице `orders`, берет последние 5 записей, форматирует их и отправляет в Telegram через Bot API.
 
-## Project Goal
-The goal of this project is to demonstrate a working integration between:
+## Цель проекта
+Показать рабочую интеграцию между:
 - Supabase
 - Telegram Bot API
 - Node.js
 - Vercel
 
-## Repository
-- GitHub Repository: https://github.com/YOUR_USERNAME/telegram-orders-dashboard
-- Live Dashboard / Deployment: https://YOUR-VERCEL-LINK.vercel.app
+## Ссылки
+- GitHub репозиторий: https://github.com/your-username/telegram-orders-dashboard
+- Дашборд (Vercel): https://your-vercel-link.vercel.app
 
-## Example Telegram Output
+## Пример сообщения в Telegram
 
 📦 Последние заказы:
 
@@ -42,29 +40,29 @@ The goal of this project is to demonstrate a working integration between:
 💰 56000  
 🆔 45  
 
-## How It Works
-1. The script connects to Supabase using environment variables.
-2. It reads the latest 5 orders from the `orders` table.
-3. It formats the orders into a Telegram message.
-4. It sends the message to the specified Telegram chat.
+## Как это работает
+1. Скрипт подключается к Supabase через переменные окружения  
+2. Получает последние 5 заказов из таблицы `orders`  
+3. Формирует сообщение  
+4. Отправляет его в Telegram  
 
-## Technologies Used
-- Node.js
-- Supabase
-- Telegram Bot API
-- Axios
-- Vercel
+## Технологии
+- Node.js  
+- Supabase  
+- Telegram Bot API  
+- Axios  
+- Vercel  
 
-## Environment Variables
-The project uses environment variables instead of hardcoded secrets.
+## Переменные окружения
 
-Required variables:
-- `SUPABASE_URL`
-- `SUPABASE_KEY`
-- `TELEGRAM_TOKEN`
-- `CHAT_ID`
+Используются переменные (без хранения секретов в коде):
 
-## Installation
+- `SUPABASE_URL`  
+- `SUPABASE_KEY`  
+- `TELEGRAM_TOKEN`  
+- `CHAT_ID`  
+
+## Установка
 
 ```bash
 npm install
