@@ -1,56 +1,59 @@
 const axios = require('axios');
 const { createClient } = require('@supabase/supabase-js');
 
-// 🔑 ТВОИ ДАННЫЕ
-const SUPABASE_URL = 'https://ihmqehwnqvnqeuhleooj.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_7j7wBChfmcbGgYD9tagCRw_jtQcuvYt';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 
-const TELEGRAM_TOKEN = '8746472416:AAFLG61hl8FhjFmoZeWZPH8pt_TtaLEkb5A';
-const CHAT_ID = '6222262889';
+if (!SUPABASE_URL || !SUPABASE_KEY || !TELEGRAM_TOKEN || !CHAT_ID) {
+  console.error('Missing required environment variables.');
+  process.exit(1);
+}
 
-// подключение к Supabase
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function sendOrdersToTelegram() {
   try {
-    // берем заказы
     const { data, error } = await supabase
       .from('orders')
       .select('*')
       .order('id', { ascending: false })
-      .limit(5); // последние 5 заказов
+      .limit(5);
 
     if (error) {
-      console.log('❌ Ошибка Supabase:', error);
+      console.error('Supabase error:', error.message || error);
       return;
     }
 
     if (!data || data.length === 0) {
-      console.log('⚠️ Нет заказов');
+      console.log('No orders found.');
       return;
     }
 
-    // формируем сообщение
-    let message = '📦 Последние заказы:\n\n';
+    const message =
+      '📦 Последние заказы:\n\n' +
+      data
+        .map((order) => {
+          const name = order.name || order.customer_name || 'Без имени';
+          const amount = order.amount || order.price || order.total || 0;
+          const id = order.id || '-';
 
-    data.forEach(order => {
-      message += `👤 ${order.first_name}\n`;
-      message += `💰 ${order.total}\n`;
-      message += `🆔 ${order.external_id}\n\n`;
-    });
+          return `👤 ${name}\n💰 ${amount}\n🆔 ${id}`;
+        })
+        .join('\n\n');
 
-    // отправка в Telegram
     const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
 
-    await axios.post(url, {
+    const response = await axios.post(url, {
       chat_id: CHAT_ID,
       text: message,
     });
 
-    console.log('✅ Отправлено в Telegram');
-
+    console.log('Message sent successfully.');
+    console.log(response.data);
   } catch (err) {
-    console.log('❌ Ошибка:', err.response?.data || err.message);
+    console.error('Unexpected error:', err.response?.data || err.message || err);
   }
 }
 
