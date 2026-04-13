@@ -13,8 +13,21 @@
 - Vercel
 
 ## Ссылки
-- GitHub репозиторий: https://github.com/your-username/telegram-orders-dashboard
-- Дашборд (Vercel): https://your-vercel-link.vercel.app
+- GitHub репозиторий: https://github.com/ErickGlow/telegram-orders-dashboard
+- Дашборд (Vercel): Ссылка на дашборд: https://telegram-orders-dashboard.vercel.app
+
+Ссылка на GitHub:
+https://github.com/ErickGlow/telegram-orders-dashboard
+
+В README описал:
+— какие промпты использовал
+— где возникла ошибка
+— как ее решил
+
+Добавил:
+— рабочий код
+— package.json
+— скриншот Telegram уведомления
 
 ## Пример сообщения в Telegram
 
